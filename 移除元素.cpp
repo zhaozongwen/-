@@ -1,10 +1,11 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int removeElement(int* nums,int numsSize,int val){
-	for(int i=0;i<numsSize;i++){
-		if(nums[i]==val){// 发现需要移除的元素，就将数组集体向前移动一位
-			for(int j=i+1;j<numsSize;j++){
+int removeElement(int* nums, int numsSize, int val) {
+	for (int i = 0; i < numsSize; i++) {
+		if (nums[i] == val) { // 发现需要移除的元素，就将数组集体向前移动一位
+			for (int j = i + 1; j < numsSize; j++) {
 				nums[j - 1] = nums[j];
 			}
 			i--; // 因为下标i以后的数值都向前移动了一位，所以i也向前移动一位
@@ -14,15 +15,30 @@ int removeElement(int* nums,int numsSize,int val){
 	return numsSize;
 }
 
-int main() {
-	int nums[8]={0,1,2,2,3,0,4,2};
-	for(int i=0;i<8;i++){
-		cout<<nums[i]<<" ";
+int remove(vector<int>& num, int numsSize, int val) {
+	int slowIndex = 0;
+	for (int fastIndex = 0; fastIndex < numsSize; fastIndex++) {
+		if (val != num[fastIndex]) {
+			num[slowIndex++] = num[fastIndex];
+		}
 	}
-	cout<<endl;
-	int numsSize = sizeof(nums)/sizeof(nums[0]);
+	return slowIndex;
+}
+
+int main() {
+	int nums[8] = {1, 1, 2, 2, 3, 3, 4, 4};
+	vector<int> num(8);
+	for (int i = 0; i < 8; i++) {
+		num[i] = nums[i] ;
+	}
+	for (int i = 0; i < 8; i++) {
+		cout << nums[i] << " ";
+	}
+	cout << endl;
+	int numsSize = sizeof(nums) / sizeof(nums[0]);
 	int x;
-	cin>>x;
-	cout<<removeElement(nums,numsSize,x);
+	cin >> x;
+	cout << removeElement(nums, numsSize, x) << endl;
+	cout << remove(num, numsSize, x);
 	return 0;
 }
